@@ -1,6 +1,4 @@
 
-
-
 function fromArrayToNestedObject (strArr) {
 
     var nestedObj = {};
@@ -12,10 +10,12 @@ function fromArrayToNestedObject (strArr) {
         var age = strArr[i].split(",")[1];
 
         nestedObj[firstName] = { "secondName" : secondName, "age": age };
-
         // add a condition that allow to include those having at least one different property value
         
     }
+    // firstName.forEach(firstName => {
+    //     nestedObj[firstName] = { "secondName" : secondName, "age": age };
+    // })
 
     return nestedObj;
 }

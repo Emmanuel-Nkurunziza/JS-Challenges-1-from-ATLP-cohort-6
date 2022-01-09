@@ -9,7 +9,7 @@ function nonPrimes (arr) {
             for (let i = 2; i <= Math.sqrt(num); i++) {
               if (num % i == 0)
                 return false;
-            }
+            } if (num > 1)
             return true;
         }
         if (isPrime(num) !== true)  {
@@ -27,7 +27,7 @@ function nonPrimes (arr) {
             nonPrimes[j+1] = target;
         }
 
-        var sortedNonPrimes= nonPrimes; // the nonpromes have sorted by the above for loop
+        var sortedNonPrimes= nonPrimes; // the nonprimes have sorted by the above for loop
 
     return sortedNonPrimes;
 }

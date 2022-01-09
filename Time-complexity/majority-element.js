@@ -1,24 +1,5 @@
-// reference: https://www.geeksforgeeks.org/majority-element/
 
-
-// Write a function which takes an array and prints the majority element (if it exists), otherwise prints 
-// “No Majority Element”. A majority element in an array A[] of size n is an element that appears more than n/2 times 
-// (and hence there is at most one such element). 
-
-// Examples : 
-
-// Input : {3, 3, 4, 2, 4, 4, 2, 4, 4}
-// Output : 4
-// Explanation: The frequency of 4 is 5 which is greater
-// than the half of the size of the array size. 
-
-// Input : {3, 3, 4, 2, 4, 4, 2, 4}
-// Output : No Majority Element
-// Explanation: There is no element whose frequency is
-// greater than the half of the size of the array size.
-
-
-// exploit all the 4 methods and their complexity analysis
+//Here We exploit and compare the 4  Algorithm and their complexity analysis
 
 
 // --------------------////////////////////////////
@@ -49,6 +30,7 @@
 
 function findMajority(arr, n)
 {
+    var startTime1 = performance.now();
     let maxCount = 0;
     let index = -1; // sentinels
      
@@ -69,37 +51,46 @@ function findMajority(arr, n)
             index = i;
         }
     }
+
+    var endTime1 = performance.now();
+    var timeDiff1 = endTime1 - startTime1; //in ms 
+
  
     // If maxCount is greater than n/2
     // return the corresponding element
-    if (maxCount > n / 2)
-        console.log('the Majority Element is ' + arr[index]);
-    else
-        console.log('No Majority Element');
-}
+    if (maxCount > n / 2) {
+        console.log (`
+        ALGORITHM #1 (BASIC ALGORITHM). It uses 2 nested loops which are used to traverse the array from start to end\
 
+        the Majority Element is ` + arr[index] +'  and the time to find it is ' + timeDiff1 +`  milliseconds\
+
+        in this case the the time complexity is O(n^2) or O(n*n)\
+
+        and the Auxiliary Space: O(1), as no extra space is required for any operation so the space complexity is constant.
+        `)
+    }
+
+
+    else
+        console.log(`
+        ALGORITHM #1 (BASIC ALGORITHM)\
+
+        No Majority Element
+        `);
+}
 
  
 // to test the code
-// let arr = [ 1, 1, 2, 1, 3, 5, 1 ]; // the Majority Element is 1
+ let arr = [ 1, 1, 2, 1, 3, 5, 1 ]; // the Majority Element is 1
 // let arr = [3, 3, 4, 2, 4, 4, 2, 4, 4] // the Majority Element is 4
 //let arr = [3, 3, 4, 2, 4, 4, 2, 4] // No Majority Element
-let arr = [3,1,3,4,4,5,3,5,3,3,3,6,3] // the Majority Element is 3
+// let arr = [3,1,3,4,4,5,3,5,3,3,3,6,3] // the Majority Element is 3
 //let arr =	[3,1,3,4,4] // No Majority Element
 
 let n = arr.length;
  
 // Function calling
-// findMajority(arr, n);
- 
-
-// Complexity Analysis: 
-
-// >> Time Complexity: O(n*n). 
-// A nested loop is needed where both the loops traverse the array from start to end, so the time complexity is O(n^2).
-
-// >> Auxiliary Space: O(1). 
-// As no extra space is required for any operation so the space complexity is constant.
+findMajority(arr, n);
 
 
 
@@ -130,14 +121,33 @@ let n = arr.length;
     /* Function to print Majority Element */
     function printMajority(a, size)
     {
+        var startTime2 = performance.now();
         /* Find the candidate for Majority*/
         let cand = findCandidate(a, size);
   
         /* Print the candidate if it is Majority*/
-        if (isMajority(a, size, cand))
-            console.log(" " + cand + " ");
+        if (isMajority(a, size, cand)) {
+            var endTime2 = performance.now();
+            var timeDiff2 = endTime2 - startTime2; //in ms 
+
+            console.log (`
+            ALGORITHM #2 (MOORE’S VOTING ALGORITHM). It uses two traversal of the array \
+    
+            the Majority Element is ` + cand +'  and the time to find it is ' + timeDiff2 +`  milliseconds\
+    
+            in this case the Time Complexity: O(n) which is linear\
+    
+            and the Auxiliary Space: O(1), as no extra space is required for any operation so the space complexity is constant.
+            `)
+
+        }
+            
         else
-            console.log("No Majority Element");
+            console.log(`
+            ALGORITHM #2\
+
+            No Majority Element
+            `);
     }
   
     /* Function to find the candidate for Majority */
@@ -177,24 +187,16 @@ let n = arr.length;
 
      // to test the code
 // let a = [ 1, 3, 3, 1, 2 ];
-// let a = [ 1, 1, 2, 1, 3, 5, 1 ]; // the Majority Element is 1
+let a = [ 2, 1, 2, 1, 2, 5, 2 ]; // the Majority Element is 2
 // let a = [3, 3, 4, 2, 4, 4, 2, 4, 4] // the Majority Element is 4
 //let a = [3, 3, 4, 2, 4, 4, 2, 4] // No Majority Element
-// let a = [3,1,3,4,4,5,3,5,3,3,3,6,3] // the Majority Element is 3
-    let a = [3,1,3,4,4] // No Majority Element
+ // let a = [3,1,3,4,4,5,3,5,3,3,3,6,3] // the Majority Element is 3
+    // let a = [3,1,3,4,4] // No Majority Element
     let size = a.length;
  
     // Function call
     printMajority(a, size);
 
-
-    // Complexity Analysis: 
-
-    // Time Complexity: O(n). 
-    // As two traversal of the array is needed, so the time complexity is linear.
-
-    // Auxiliary Space: O(1). 
-    // As no extra space is required.
 
 
 
@@ -220,15 +222,27 @@ let n = arr.length;
 
 // Javascript program for the above approach
  
-function findMajority(arr)
+function findMajorityHashmap(arr)
 {
+    var startTime3 = performance.now();
     let map = new Map();
 
     for(let i = 0; i < arr.length; i++) {
         if (map.has(arr[i])) {
                 let count = map.get(arr[i]) +1;
                 if (count > arr.length /2) {
-                    console.log("Majority found is:" + arr[i]);
+                    var endTime3 = performance.now();
+                    var timeDiff3 = endTime3 - startTime3; //in ms 
+                    console.log (`
+                    ALGORITHM #3 (HASHMAP ALGORITHM). It uses one traversal of the array \
+            
+                    the Majority Element is ` + arr[i] +'  and the time to find it is ' + timeDiff3 +`  milliseconds\
+            
+                    in this case the Time Complexity: O(n) which is linear\
+            
+                    and the Auxiliary Space: O(n): linear, Since a hashmap requires linear space.
+                    `)
+                    // console.log("Majority found is:" + arr[i]);
                     return;
                 } else
                     map.set(arr[i], count);
@@ -237,7 +251,11 @@ function findMajority(arr)
         else
             map.set(arr[i],1);
         }
-        console.log(" No Majority element");
+        console.log(`
+        ALGORITHM #3 (HASHMAP ALGORITHM)\
+
+        No Majority element
+        `);
 }
  
 
@@ -246,21 +264,11 @@ function findMajority(arr)
 // let b = [ 1, 1, 2, 1, 3, 5, 1 ]; // the Majority Element is 1
 // let b = [3, 3, 4, 2, 4, 4, 2, 4, 4] // the Majority Element is 4
 //let b = [3, 3, 4, 2, 4, 4, 2, 4] // No Majority Element
-// let b = [3,1,3,4,4,5,3,5,3,3,3,6,3] // the Majority Element is 3
+ let b = [3, 5, 3, 3, 3, 6, 3] // the Majority Element is 3
 //let b = [3,1,3,4,4] // No Majority Element
-let b = [ 2,2,2,2,5,5,2,3,3 ];
+//let b = [ 2,2,2,2,5,5,2,3,3 ];
      
-findMajority(b);
-
-
-// Complexity Analysis: 
-
-// Time Complexity: O(n). 
-// One traversal of the array is needed, so the time complexity is linear.
-
-// Auxiliary Space: O(n). 
-// Since a hashmap requires linear space.
-// Thanks, Ashwani Tanwar, Karan Malhotra for suggesting this.
+findMajorityHashmap(b);
 
 
 
@@ -286,17 +294,17 @@ findMajority(b);
 // If no majority element found, print “No majority element”
 
 
-
-
     // Javascript program to find Majority
     // element in an array
      
     // Function to find Majority element
     // in an array it returns -1 if there
     // is no majority element 
+
     function majorityElement(arr, n)
     {
  
+        var startTime4 = performance.now();
         // Sort the array in O(nlogn)
         arr.sort(function(a, b){return a - b});
  
@@ -340,7 +348,32 @@ findMajority(b);
  
         // Returns maximum occurred element
         // if there is no such element, returns -1
-        return (f == 1 ? ele : -1);
+
+        if (f == 1) {
+
+            var endTime4 = performance.now();
+            var timeDiff4 = endTime4 - startTime4; //in ms 
+
+            console.log (`
+            ALGORITHM #4 (SORTING ALGORITHM). Sorting makes similar elements in the array adjacent \
+    
+            the Majority Element is ` + ele +'  and the time to find it is ' + timeDiff4 +`  milliseconds\
+    
+            in this case Sorting requires O(n log n) time complexity\
+    
+            and the Auxiliary Space: O(1) as no extra space is required.
+            `)
+
+            return;
+
+        }
+
+        else console.log(`
+        ALGORITHM #4 (SORTING ALGORITHM)\
+
+        No majority element!
+        `)
+
     }
 
 
@@ -348,19 +381,10 @@ findMajority(b);
          // to test the code
 // let x = [ 1, 3, 3, 1, 2 ];
 // let x = [ 1, 1, 2, 1, 3, 5, 1 ]; // the Majority Element is 1
-// let x = [3, 3, 4, 2, 4, 4, 2, 4, 4] // the Majority Element is 4
+ let x = [3, 4, 2, 4, 2, 4, 4] // the Majority Element is 4
 //let x = [3, 3, 4, 2, 4, 4, 2, 4] // No Majority Element
 // let x = [3,1,3,4,4,5,3,5,3,3,3,6,3] // the Majority Element is 3
 //let x = [3,1,3,4,4] // No Majority Element
-let x = [ 2,2,2,2,5,5,2,3,3 ];
+// let x = [ 2,2,2,2,5,5,2,3,3 ];
 let y = x.length;
-console.log(majorityElement(x, y));
-
-
-// Complexity Analysis: 
-
-// Time Complexity: O(nlogn). 
-// Sorting requires O(n log n) time complexity.
-
-// Auxiliary Space: O(1). 
-// As no extra space is required.
+majorityElement(x, y);

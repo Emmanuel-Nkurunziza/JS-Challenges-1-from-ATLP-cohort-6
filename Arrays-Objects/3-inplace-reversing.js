@@ -1,10 +1,13 @@
-function reverseArr(input) {
-    var ret = new Array;
-    for(var i = input.length-1; i >= 0; i--) {
-        ret.push(input[i]);
+
+function inPlaceReversing (array) {
+    var arrLength = array.length;
+    for (var i = 0; i < arrLength/2; i++) {
+        var temp = array[i];
+        array[i] = array[arrLength - 1 - i];
+        array[arrLength - 1 - i] = temp;
     }
-    return ret;
+    return array
 }
 
 
-console.log(reverseArr ([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]))
+console.log(inPlaceReversing ([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]))
